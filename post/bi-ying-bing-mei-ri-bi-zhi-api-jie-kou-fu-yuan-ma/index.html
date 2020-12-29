@@ -4,7 +4,7 @@
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<title>标签 | Gridea</title>
+<title>必应 Bing 每日壁纸 API 接口（附源码） | Gridea</title>
 
 <link rel="shortcut icon" href="https://xiaozhenyu.github.io/favicon.ico?v=1609235213369">
 
@@ -33,11 +33,11 @@
 <!--<script src="media/scripts/index.js"></script>-->
 
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
 </head>
 <body>
 <div class="main gt-bg-theme-color-first">
-    <div class="main-content">
-        <style>
+    <style>
     /* 导航栏样式 */
     .navbar {
         position: relative;
@@ -198,22 +198,123 @@
         }
     }
 </script>
-        <div class="post-container">
-            <div class="post-detail gt-bg-theme-color-first">
-                <article class="gt-post-content">
-                    <h2 class="post-title">标签</h2>
-        <div class="tags-container">
-            
-                <a class="tag gt-c-content-color-first gt-a-link"
-                   href="https://xiaozhenyu.github.io/tag/PHP/">#PHP</a>
-            
-                <a class="tag gt-c-content-color-first gt-a-link"
-                   href="https://xiaozhenyu.github.io/tag/API/">#API</a>
-            
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    必应 Bing 每日壁纸 API 接口（附源码）
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2020-12-29 ·
+                    </time>
+                    
+                        <a href="https://xiaozhenyu.github.io/tag/PHP/" class="post-tags">
+                            # PHP
+                        </a>
+                    
+                        <a href="https://xiaozhenyu.github.io/tag/API/" class="post-tags">
+                            # API
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <p><strong>简要描述：</strong></p>
+<ul>
+<li>获取 Bing 官网最新七天高清壁纸图</li>
+</ul>
+<p><strong>官方接口：</strong></p>
+<ul>
+<li>https://cn.bing.com/HPImageArchive.aspx</li>
+</ul>
+<p><strong>请求方式：</strong></p>
+<ul>
+<li>GET</li>
+</ul>
+<p><strong>参数：</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数名</th>
+<th>必选</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>format</td>
+<td>否</td>
+<td>string</td>
+<td>返回数据格式，不存在返回 xml 格式：js (一般使用这个，返回 json 格式);xml（返回 xml 格式）</td>
+</tr>
+<tr>
+<td>idx</td>
+<td>否</td>
+<td>string</td>
+<td>请求图片截止天数：0 今天 - 1 截止中明天 （预准备的）1 截止至昨天，类推（目前最多获取到 7 天前的图片）</td>
+</tr>
+<tr>
+<td>n</td>
+<td>是</td>
+<td>string</td>
+<td>1-8 返回请求数量，目前最多一次获取 8 张</td>
+</tr>
+</tbody>
+</table>
+<p><strong>封装示例</strong></p>
+<pre><code>&lt;?php
+$date = mt_rand(0, 7); //支持返回七天内得图片
+$json_content = file_get_contents('https://cn.bing.com/HPImageArchive.aspx?format=js&amp;idx=' . $date . '&amp;n=1&amp;mkt=zh-CN'); //读取必应api，获得相应数据
+$json_content = json_decode($json_content, true);
+$imgurl = 'http://cn.bing.com' . $json_content['images'][0]['url']; //组合图片url
+header(&quot;Location: $imgurl&quot;);
+?&gt;
+</code></pre>
+<p><strong>备注</strong></p>
+<ul>
+<li>直接输出最近七天壁纸得随机一张</li>
+</ul>
+
+                </div>
+            </article>
         </div>
-    </article>
-</div>
-</div>
+
+        
+
+        
+
+        
+
+        
+            <script src='https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js'></script>
+
+<style>
+	div#vcomments{
+		width:100%;
+		max-width: 1000px;
+		padding: 2.5%
+	}
+</style>
+
+
+	<div id="vcomments"></div>
+
+<script>
+	new Valine({
+		el: '#vcomments',
+		appId: '',
+		appKey: '',
+		avatar: '',
+		pageSize: 5,
+		recordIp: false,
+		placeholder: 'Just Go Go',
+		visitor: false,
+	});
+</script>
+
+        
+
         <div class="site-footer gt-c-content-color-first">
     <div class="slogan gt-c-content-color-first">温故而知新</div>
     <div class="social-container">
